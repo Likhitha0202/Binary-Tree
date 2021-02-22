@@ -1,0 +1,62 @@
+Traversal in binary Tree(DFS--->PREORDER,INORDER,POSTORDER)
+------------------------
+
+PRINTING INORDER:
+#include <stdio.h>
+#include<stdlib.h>
+struct Node {
+    int data;
+    struct Node*left;
+    struct Node*right;
+};
+struct Node*Create(){
+     int x;
+    struct Node*p;
+    scanf("%d",&x);
+    if(x==-1)
+    return NULL;
+ p = (struct Node*)malloc(sizeof(struct Node));
+ p->data = x;
+ p->left = Create();
+ p->right = Create();
+ return p;
+}
+
+void Preorder(struct Node*root) 
+{ 
+     if (root == NULL) 
+          return; 
+     printf("%d ", root->data);//1st root  
+     Preorder(root->left);   //next left
+     Preorder(root->right); //next right
+}     
+void Inorder(struct Node*root){
+    if(root){
+        Inorder(root->left);//1st left
+        printf("\n%d ",root->data);//next root
+        Inorder(root->right);//next right
+    }
+}
+
+void Postorder(struct Node* root) 
+{ 
+     if (root == NULL) 
+        return; 
+     Postorder(root->left); //1st left
+     Postorder(root->right);//next right
+     printf("%d ", root->data); //next root
+} 
+int main()
+{
+    struct Node*root;
+    root = Create();
+    if(root){
+        printf("Tree is Sucessfully Created!");
+    }
+
+    Preorder(root);
+    Inorder(root);
+    Postorder(root);
+   return 0;
+}
+
