@@ -1,5 +1,5 @@
 Traversal in binary Tree(DFS--->PREORDER,INORDER,POSTORDER)
-------------------------
+----------------------------------------------------------
 
 PRINTING INORDER:
 #include <stdio.h>
