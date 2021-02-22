@@ -1,0 +1,97 @@
+Traversal of binary tree is of 2 types:
+1.BFS(level order traversal)
+2.DFS(INORDER,PREORDER,POSTORDER)
+
+1.BFS--->Usage of queue
+
+2.DFS
+  PREORDER--->  <ROOT><LEFT NODE><RIGHT NODE>[ DATA ,L,R]
+  INORDER --->  <LEFT NODE><ROOT><RIGHT NODE>[L,DATA,R]
+  POSTORDER---> <LEFT NODE><RIGHT NODE><ROOT>[L,R,DATA]
+
+
+
+LEVEL ORDER Traversal of a BST (C Programm):
+--------------------------------
+//LEVEL ORDER Traversal of a BST
+#include <stdio.h>
+#include<stdlib.h>
+
+struct Node
+{
+    int data;
+    struct node* l;
+    struct node* r;
+};
+ 
+struct Node** createQueue(int *, int *);
+void enQueue(struct Node **, int *, struct Node *);
+struct Node *deQueue(struct Node **, int *);
+ 
+void printLevelOrder(struct Node* root)
+{
+    int rear, front;
+    struct Node **queue = createQueue(&front, &rear);
+    struct Node *temp_node = root;
+ 
+    while (temp_node)
+    {
+        printf("%d ", temp_node->data);
+ 
+        if (temp_node->l)
+            enQueue(queue, &rear, temp_node->l);
+ 
+        if (temp_node->r)
+            enQueue(queue, &rear, temp_node->r);
+ 
+        temp_node = deQueue(queue, &front);
+    }
+}
+ 
+struct Node** createQueue(int *front, int *rear)
+{
+    struct Node **queue =
+        (struct Node **)malloc(sizeof(struct Node*)*500);
+ 
+    *front = *rear = 0;
+    return queue;
+}
+ 
+void enQueue(struct Node **queue, int *rear, 
+                             struct Node *new_node)
+{
+    queue[*rear] = new_node;
+    (*rear)++;
+}
+ 
+struct Node *deQueue(struct Node **queue, int *front)
+{
+    (*front)++;
+    return queue[*front - 1];
+}
+
+struct Node*Create(){
+     int x;
+    struct Node*p;
+    scanf("%d",&x);
+    if(x==-1)
+    return NULL;
+ p = (struct Node*)malloc(sizeof(struct Node));
+ p->data = x;
+ p->l = Create();
+ p->r = Create();
+ return p;
+}
+int main()
+{
+    struct Node*root;
+    root = Create();
+    //20 30 -1 -1 10 11 -1 -1 8 -1 -1(tree nodes)
+ 
+    if(root){
+        printf("Tree is Sucessfully Created!\n");
+    }
+    printLevelOrder(root);
+
+    return 0;
+}
